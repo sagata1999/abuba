@@ -23,9 +23,9 @@ LDFLAGS =-ldflags "$(LDPARAM)"
 
 TARGET = -o bin/$(NAME)
 
-SRC = ./cmd/$(NAME)
+SRC = ./cmd/main
 
-all: clean check arm64
+all: check clean arm64
 
 check:
 	@echo "*** check stage ***"
@@ -34,7 +34,7 @@ check:
 
 arm64:
 	@echo "*** compile ***"
-	GOOS=linux GOARCH=arm64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
+	GOOS=darwin GOARCH=arm64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
 	@echo "*** compile complete ***\n"
 
 clean:
