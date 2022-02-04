@@ -1,14 +1,13 @@
 package app
 
 import (
+	"awesomeProject/internal/pkg/http"
 	"awesomeProject/internal/pkg/version"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/alecthomas/kingpin.v2"
 	"os"
-	"os/signal"
 	"strings"
-	"syscall"
 )
 
 // Run ...
@@ -42,19 +41,10 @@ func Run() {
 
 	switch command {
 	case random.FullCommand():
-		fmt.Println("You selected random!")
+		http.GetRandomJoke()
 	case dump.FullCommand():
-		fmt.Printf("You selected dump num: %d\n", &dumpNum)
+		http.GetJokesByCategories(*dumpNum)
 	}
 
-	gracefulStop := make(chan os.Signal)
-
-	signal.Notify(gracefulStop, syscall.SIGTERM)
-	signal.Notify(gracefulStop, syscall.SIGINT)
-
-	sig := <-gracefulStop
-	log.Warnf("Caught sig: %+v", sig)
-	log.Info("Wait to finish processing")
-
-	log.Debug("Joker app stop")
+	log.Info("Joker app stop")
 }
