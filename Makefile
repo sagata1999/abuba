@@ -1,4 +1,4 @@
-.PONY: all check arm64 clean
+.PONY: all check arm64 amd64 clean
 
 NAME = joker
 
@@ -23,9 +23,11 @@ LDFLAGS =-ldflags "$(LDPARAM)"
 
 TARGET = -o bin/$(NAME)
 
-SRC = ./cmd/$(NAME)
+SRC = ./cmd/main
 
-all: clean check arm64
+arm64: check clean arm64
+
+amd64: check clean amd64
 
 check:
 	@echo "*** check stage ***"
@@ -34,7 +36,12 @@ check:
 
 arm64:
 	@echo "*** compile ***"
-	GOOS=linux GOARCH=aarch64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
+	GOOS=darwin GOARCH=arm64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
+	@echo "*** compile complete ***\n"
+
+amd64:
+	@echo "*** compile ***"
+	GOOS=linux GOARCH=amd64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
 	@echo "*** compile complete ***\n"
 
 clean:
