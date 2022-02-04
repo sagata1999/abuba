@@ -34,7 +34,7 @@ check:
 
 arm64:
 	@echo "*** compile ***"
-	GOOS=linux GOARCH=aarch64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
+	GOOS=linux GOARCH=arm64 go build $(FLAGS) $(LDFLAGS) $(TARGET) $(SRC)
 	@echo "*** compile complete ***\n"
 
 clean:
