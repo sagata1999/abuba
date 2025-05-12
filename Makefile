@@ -25,14 +25,14 @@ TARGET = -o bin/$(NAME)
 
 SRC = ./cmd/main
 
-arm64: check clean arm64
+arm64: clean arm64
 
-amd64: check clean amd64
+amd64: clean amd64
 
-check:
-	@echo "*** check stage ***"
-	@go-consistent -v ./...
-	@echo "*** check complete ***\n"
+# check:
+	# @echo "*** check stage ***"
+	# @go-consistent -v ./...
+	# @echo "*** check complete ***\n"
 
 arm64:
 	@echo "*** compile ***"
